@@ -1,0 +1,35 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block conteudo %}
+			<div class="page-header text-center py-3">
+            	<h1>Games</h1>
+        	</div>
+			<div class="row">
+				<div class="col-sm-4">
+					{% if game.capa_game == ''  %}
+							<img src="{% static 'img/game.png' %}" class="card-img-top" alt="...">
+					{% else %}
+							<img src="{{ game.capa_game.url }}" class="card-img-top" alt="...">
+					{% endif %}
+
+				</div>
+				<div class="col-sm-8">
+				    <p class="h4"><strong>Nome: </strong>{{ game.nome }}</p>
+					<p class="h4"><strong>Desenvolvedor(es): </strong></p>
+					{% for Dev in game.dev.all %}
+        			<p class="h4">{{ Dev.nome }}</p>
+					{% endfor %}
+					{% for gen in game.genero.all %}
+					<p class="h4"><strong> Genero: </strong>{{ gen.nome }}</p>
+					{% endfor %}
+					{% for plat in game.plataforma.all %}
+					<p class="h4"><strong> Plataforma: </strong>{{ plat.nome }}</p>
+					{% endfor %}
+					<p class="h4"><strong> Enredo: </strong></p>
+					<p>{{ game.enredo }}</p>
+					<p class="h4"><strong> Crítica: </strong>{{ game.critica }}</p>
+					<p class="h4"><strong> Avaliação: </strong>{{ game.avaliacao }}</p>
+
+				</div>
+			</div>
+{% endblock %}

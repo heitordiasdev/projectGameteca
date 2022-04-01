@@ -1,0 +1,67 @@
+{% extends '../template.html' %}
+{% load static %}
+{% block conteudo %}
+    <div class="row">
+        <div class="col-12">
+            <div align="center">
+                <h2>Criar Game</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'partils/_alerta.html' %}
+    <form action="{% url 'cria_games' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <label for="genero" class="form-label">Genero</label>
+                <select class="form-select" multiple size="3" name="genero" aria-label="multiple select example" id="genero" required>
+                    {% for gen in generos %}
+                        <option value="{{ gen.id }}">{{ gen.nome }}</option>
+                    {% endfor %}
+                </select>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="data_lanc" class="form-label">Ano lançamento:</label>
+                <input type="number" class="form-control" id="data_lanc" name="data_lanc" required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="critica" class="form-label">Critica:</label>
+                <input type="text" class="form-control" id="critica" name="critica" required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="avaliacao" class="form-label">Avaliacao:</label>
+                <input type="number" class="form-control" id="avaliacao" name="avaliacao" required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="capa_game" class="form-label">Capa do Game:</label>
+              <input class="form-control" type="file" id="capa_game" name="capa_game">
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="dev" class="form-label">Desenvolvedor(es)</label>
+                <select class="form-select" multiple size="3" name="dev" aria-label="multiple select example" id="dev" required>
+                    {% for Dev in desenvolvedores %}
+                        <option value="{{ Dev.id }}">{{ Dev.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="plataforma" class="form-label">Plataforma</label>
+                <select class="form-select" multiple size="3" name="plataforma" aria-label="multiple select example" id="plataforma" required>
+                    {% for plat in plataformas %}
+                        <option value="{{ plat.id }}" >{{ plat.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="enredo" class="form-label">Enredo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" id="enredo" name="enredo"></textarea>
+            </div>
+
+            <div class="col-12 col-lg-12">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

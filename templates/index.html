@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block conteudo %}
+			<div class="page-header text-center py-3">
+            	<h1>Gameteca</h1>
+        	</div>
+			<div class="row">
+				{% for game in games %}
+				<div class="col-sm-4">
+			        <div class="card" style="width: 18rem;">
+						{% if game.capa_game == ''  %}
+							<img src="{% static 'img/game.png' %}" class="card-img-top" alt="...">
+				  		{% else %}
+							<img src="{{ game.capa_game.url }}" class="card-img-top" alt="...">
+						{% endif %}
+						<div class="card-body">
+							<a href= "{% url 'games' game.id %}" class="text-decoration-none text-reset"><h5 class= "card-title">{{ game.nome }}</h5></a>
+							<p>Desenvolvedor(es):</p>
+							{% for dev in game.dev.all %}
+							<p class= "card-text">{{ dev.nome }} </p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+{% endblock %}

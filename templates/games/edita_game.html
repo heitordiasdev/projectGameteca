@@ -1,0 +1,81 @@
+{% extends '../template.html' %}
+{% load static %}
+{% block conteudo %}
+    <div class="row">
+        <div class="col-12">
+            <div align="center">
+                <h2>Editar Game</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'partils/_alerta.html' %}
+    <form action="{% url 'atualiza_game' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" value="{{ game.id }}" name="game_id">
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ game.nome }}" required>
+            </div>
+            <label for="genero" class="form-label">Genero</label>
+                <select class="form-select" multiple size="3" name="genero" aria-label="multiple select example" id="genero" required>
+                    {% for gen in generos %}
+                        <option value="{{ gen.id }}">{{ gen.nome }}</option>
+                        {% if gen in game.genero.all %}
+                            <option value="{{ gen.id }}" selected>{{ gen.nome }}</option>
+                        {% else %}
+                            <option value="{{ gen.nome }}" >{{ gen.nome }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="data_lanc" class="form-label">Ano lançamento:</label>
+                <input type="number" class="form-control" id="data_lanc" name="data_lanc" value="{{ game.data_lanc }}" required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="critica" class="form-label">Critica:</label>
+                <input type="text" class="form-control" id="critica" name="critica" value="{{ game.critica }}" required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="avaliacao" class="form-label">Avaliacao:</label>
+                <input type="number" class="form-control" id="avaliacao" name="avaliacao" value="{{ game.avaliacao }}" required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="capa_game" class="form-label">Capa do Game:</label>
+              <input class="form-control" type="file" id="capa_game" name="capa_game">
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="dev" class="form-label">Desenvolvedor(es)</label>
+                <select class="form-select" multiple size="3" name="dev" aria-label="multiple select example" id="dev" required>
+                    {% for Dev in desenvolvedores %}
+                        {% if Dev in game.dev.all %}
+                             <option value="{{ Dev.id }}" selected>{{ Dev.nome }}</option>
+                        {% else %}
+                            <option value="{{ Dev.nome }}" >{{ Dev.nome }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="plataforma" class="form-label">Plataforma</label>
+                <select class="form-select" multiple size="3" name="plataforma" aria-label="multiple select example" id="plataforma" required>
+                    {% for plat in plataformas %}
+                        {% if plat in game.plataforma.all %}
+                            <option value="{{ plat.id }}" selected>{{ plat.nome }}</option>
+                        {% else %}
+                            <option value="{{ plat.nome }}" >{{ plat.nome }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="enredo" class="form-label">Enredo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" id="enredo" name="enredo" >{{ game.enredo }}</textarea>
+            </div>
+
+            <div class="col-12 col-lg-12">
+                <button class="btn btn-primary" type="submit">Atualizar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

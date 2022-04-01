@@ -1,0 +1,28 @@
+{% extends '../template.html' %}
+{% load static %}
+{% block conteudo %}
+    <div class="row">
+        <div class="col-12">
+            <div align="center">
+                <h2>Criar Desenvolvedor</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'partils/_alerta.html' %}
+    <form action="{% url 'cria_desenvolvedor' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="endereco" class="form-label">Endereco(cidade,estado,país)</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" required>
+            </div>
+            <div class="col-12 col-lg-12">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
